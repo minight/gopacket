@@ -24,9 +24,10 @@ type tcpipPseudoHeader interface {
 }
 
 func (ip *IPv4) pseudoheaderChecksum() (csum uint32, err error) {
-	if err := ip.AddressTo4(); err != nil {
-		return 0, err
-	}
+	// fuck the safety check. if you're doing ip4,
+	// if err := ip.AddressTo4(); err != nil {
+	// 	return 0, err
+	// }
 	csum += (uint32(ip.SrcIP[0]) + uint32(ip.SrcIP[2])) << 8
 	csum += uint32(ip.SrcIP[1]) + uint32(ip.SrcIP[3])
 	csum += (uint32(ip.DstIP[0]) + uint32(ip.DstIP[2])) << 8
@@ -100,5 +101,15 @@ func (i *tcpipchecksum) SetNetworkLayerForChecksum(l gopacket.NetworkLayer) erro
 	default:
 		return fmt.Errorf("cannot use layer type %v for tcp checksum network layer", l.LayerType())
 	}
+	return nil
+}
+
+func (i *tcpipchecksum) SetNetworkLayerForChecksumV4(v *IPv4) error {
+	i.pseudoheader = v
+	return nil
+}
+
+func (i *tcpipchecksum) SetNetworkLayerForChecksumV6(v *IPv6) error {
+	i.pseudoheader = v
 	return nil
 }
