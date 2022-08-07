@@ -17,12 +17,12 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/google/gopacket"
-	"github.com/google/gopacket/examples/util"
-	"github.com/google/gopacket/layers"
-	"github.com/google/gopacket/pcap"
-	"github.com/google/gopacket/tcpassembly"
-	"github.com/google/gopacket/tcpassembly/tcpreader"
+	"github.com/minight/gopacket"
+	"github.com/minight/gopacket/examples/util"
+	"github.com/minight/gopacket/layers"
+	"github.com/minight/gopacket/pcap"
+	"github.com/minight/gopacket/tcpassembly"
+	"github.com/minight/gopacket/tcpassembly/tcpreader"
 )
 
 var iface = flag.String("i", "eth0", "Interface to get packets from")
